@@ -19,8 +19,13 @@ class BaseModel():
             created_at: datetime - current datetime when an instance is created
             updated_at: datetime - updated every time you change your object
         """
+        # Set name and my_number unconditionally
+        self.name = name
+        self.my_number = my_number
+
         # Re-create an instance with this dictionary representation.
         if kwargs:
+            print(kwargs)
             # Converting created_at and updated_at strings into datetime object
             form = "%Y-%m-%dT%H:%M:%S.%f"
             created_at_dict = kwargs['created_at']
@@ -31,16 +36,16 @@ class BaseModel():
             # Setting the attributes from the dict
             for key, value in kwargs.items():
                 if key == '__class__':
-                    pass
+                    continue
+                elif key == 'name':
+                    print('name')
                 else:
                     setattr(self, key, value)
-
-        # Create new instance
-        self.name = name
-        self.my_number = my_number
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.datetime.now()
-        self.updated_at = datetime.datetime.now()
+        else:
+            # Create new instance
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.datetime.now()
+            self.updated_at = datetime.datetime.now()
 
     def __str__(self):
         """Returns a string representation of the class"""
