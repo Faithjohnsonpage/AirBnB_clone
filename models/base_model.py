@@ -11,7 +11,7 @@ from models import storage
 
 class BaseModel():
     """A class that defines a BaseModel"""
-    def __init__(self, name=None, my_number=0, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         """This instantiates the insstance of the class
         Args:
             name: name of model
@@ -20,9 +20,6 @@ class BaseModel():
             created_at: datetime - current datetime when an instance is created
             updated_at: datetime - updated every time you change your object
         """
-        # Set name and my_number unconditionally
-        self.name = name
-        self.my_number = my_number
 
         # Re-create an instance with this dictionary representation.
         if kwargs:
@@ -37,8 +34,6 @@ class BaseModel():
             for key, value in kwargs.items():
                 if key == '__class__':
                     continue
-                elif key == 'name':
-                    print('name')
                 else:
                     setattr(self, key, value)
         else:
