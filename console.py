@@ -19,9 +19,9 @@ class HBNBCommand(cmd.Cmd):
         elif arg != "BaseModel":
             print("** class doesn't exist **")
         else:
-           new_instance = models.base_model.BaseModel()
-           new_instance.save()
-           print(new_instance.id)
+            new_instance = models.base_model.BaseModel()
+            new_instance.save()
+            print(new_instance.id)
 
     def do_show(self, arg=""):
         """Prints the string representation of an instance
@@ -59,7 +59,7 @@ class HBNBCommand(cmd.Cmd):
         if arg == "":
             print("** class name missing **")
             return
-        
+
         args = arg.split(" ")
         if len(args) == 1:
             if args[0] != "BaseModel":
@@ -71,7 +71,7 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 2:
             class_name = args[0]
             instance_id = args[1]
-        
+
         all_objs = storage.all()
         all_ids = []
         base_ids = [key for key in all_objs.keys()]
@@ -99,7 +99,6 @@ class HBNBCommand(cmd.Cmd):
             print(instances_strings)
         elif arg != "BaseModel":
             print("** class doesn't exist **")
-
 
     def do_update(self, arg=""):
         """Updates an instance based on the class name
@@ -133,7 +132,7 @@ class HBNBCommand(cmd.Cmd):
             class_name = args[0]
             instance_id = args[1]
             attribute = args[2]
-            attribute_value = args[3]
+            attr_value = args[3]
 
             # Strip surrounding quotes on attribute if any
             if attribute.startswith('"') and attribute.endswith('"'):
@@ -142,15 +141,15 @@ class HBNBCommand(cmd.Cmd):
                 attribute = attribute[1:-1]
 
             # Strip surrounding quotes on attribute_value if any
-            if attribute_value.startswith('"') and attribute_value.endswith('"'):
-                attribute_value = attribute_value[1:-1]
-            elif attribute_value.startswith("'") and attribute_value.endswith("'"):
-                attribute_value = attribute_value[1:-1]
+            if attr_value.startswith('"') and attr_value.endswith('"'):
+                attr_value = attr_value[1:-1]
+            elif attr_value.startswith("'") and attr_value.endswith("'"):
+                attr_value = attr_value[1:-1]
 
             key_id = "{}.{}".format(class_name, instance_id)
             value = all_objs.get(key_id)
             value_dict = value.to_dict()
-            value_dict[attribute] = attribute_value
+            value_dict[attribute] = attr_value
             value_object = models.base_model.BaseModel(**value_dict)
             value = value_object
             for keys in all_objs.keys():
@@ -159,7 +158,7 @@ class HBNBCommand(cmd.Cmd):
             storage.save()
         else:
             return
-   
+
     def emptyline(self):
         """Do nothing when an empty line is entered"""
         pass
@@ -175,6 +174,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_EOF(self, arg):
         return True
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

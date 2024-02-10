@@ -22,7 +22,8 @@ class FileStorage:
 
     def save(self):
         """Serializes __objects to the JSON file"""
-        d = {key: obj.to_dict() for key, obj in self.__class__.__objects.items()}
+        d = {key: obj.to_dict() for key,
+             obj in self.__class__.__objects.items()}
         with open(self.__class__.__file_path, "w", encoding="utf-8") as f:
             json.dump(d, f)
 
@@ -31,7 +32,8 @@ class FileStorage:
         from models.base_model import BaseModel
         if self.__class__.__file_path:
             try:
-                with open(self.__class__.__file_path, "r", encoding="utf-8") as f:
+                with open(self.__class__.__file_path,
+                          "r", encoding="utf-8") as f:
                     obj_dict = json.load(f)
                     obj_dict = {k: BaseModel(**v) for k, v in obj_dict.items()}
                     self.__class__.__objects = obj_dict

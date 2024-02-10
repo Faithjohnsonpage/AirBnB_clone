@@ -26,9 +26,11 @@ class BaseModel():
             # Converting created_at and updated_at strings into datetime object
             form = "%Y-%m-%dT%H:%M:%S.%f"
             created_at_dict = kwargs['created_at']
-            kwargs['created_at'] = datetime.datetime.strptime(created_at_dict, form)
+            kwargs['created_at'] = \
+                datetime.datetime.strptime(created_at_dict, form)
             updated_at_dict = kwargs['updated_at']
-            kwargs['updated_at'] = datetime.datetime.strptime(updated_at_dict, form)
+            kwargs['updated_at'] = \
+                datetime.datetime.strptime(updated_at_dict, form)
 
             # Setting the attributes from the dict
             for key, value in kwargs.items():
@@ -50,8 +52,9 @@ class BaseModel():
                                      self.id, self.__dict__)
 
     def save(self):
-        """updates the public instance attribute updated_at with the current datetime.
-        It also calls the save() method of the storage instance"""
+        """updates the public instance attribute updated_at with the
+        current datetime.It also calls the save()
+        method of the storage instance"""
         self.updated_at = datetime.datetime.now()
         storage.save()
 
