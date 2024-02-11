@@ -6,6 +6,11 @@ import cmd
 import models.base_model
 from models import storage
 from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
@@ -19,7 +24,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
 
-        if arg not in ["BaseModel", "User"]:
+        if arg not in ["BaseModel", "User", "State",
+                       "City", "Amenity", "Place", "Review"]:
             print("** class doesn't exist **")
             return
 
@@ -29,6 +35,26 @@ class HBNBCommand(cmd.Cmd):
             print(new_instance.id)
         elif arg == "User":
             new_instance = User()
+            new_instance.save()
+            print(new_instance.id)
+        elif arg == "State":
+            new_instance = State()
+            new_instance.save()
+            print(new_instance.id)
+        elif arg == "City":
+            new_instance = City()
+            new_instance.save()
+            print(new_instance.id)
+        elif arg == "Amenity":
+            new_instance = Amenity()
+            new_instance.save()
+            print(new_instance.id)
+        elif arg == "Place":
+            new_instance = Place()
+            new_instance.save()
+            print(new_instance.id)
+        elif arg == "Review":
+            new_instance = Review()
             new_instance.save()
             print(new_instance.id)
 
@@ -41,7 +67,8 @@ class HBNBCommand(cmd.Cmd):
 
         args = arg.split(" ")
         if len(args) == 1:
-            if args[0] not in ["BaseModel", "User"]:
+            if args[0] not in ["BaseModel", "User",
+                               "State", "City", "Amenity", "Place", "Review"]:
                 print("** class doesn't exist **")
                 return
             print("** instance id missing **")
@@ -86,6 +113,101 @@ class HBNBCommand(cmd.Cmd):
                     key_id = "User.{}".format(instance_id)
                     model = all_objs[key_id]
                     print(model)
+            elif args[0] == "State":
+                class_name = args[0]
+                instance_id = args[1]
+
+                all_objs = storage.all()
+
+                all_ids = []
+                base_ids = [key for key in all_objs.keys()]
+                for value in base_ids:
+                    model, ids = value.split(".")
+                    if model == "State":
+                        all_ids.append(ids)
+
+                if instance_id not in all_ids:
+                    print("** no instance found **")
+                else:
+                    key_id = "State.{}".format(instance_id)
+                    model = all_objs[key_id]
+                    print(model)
+            elif args[0] == "City":
+                class_name = args[0]
+                instance_id = args[1]
+
+                all_objs = storage.all()
+
+                all_ids = []
+                base_ids = [key for key in all_objs.keys()]
+                for value in base_ids:
+                    model, ids = value.split(".")
+                    if model == "City":
+                        all_ids.append(ids)
+
+                if instance_id not in all_ids:
+                    print("** no instance found **")
+                else:
+                    key_id = "City.{}".format(instance_id)
+                    model = all_objs[key_id]
+                    print(model)
+            elif args[0] == "Amenity":
+                class_name = args[0]
+                instance_id = args[1]
+
+                all_objs = storage.all()
+
+                all_ids = []
+                base_ids = [key for key in all_objs.keys()]
+                for value in base_ids:
+                    model, ids = value.split(".")
+                    if model == "Amenity":
+                        all_ids.append(ids)
+
+                if instance_id not in all_ids:
+                    print("** no instance found **")
+                else:
+                    key_id = "Amenity.{}".format(instance_id)
+                    model = all_objs[key_id]
+                    print(model)
+            elif args[0] == "Place":
+                class_name = args[0]
+                instance_id = args[1]
+
+                all_objs = storage.all()
+
+                all_ids = []
+                base_ids = [key for key in all_objs.keys()]
+                for value in base_ids:
+                    model, ids = value.split(".")
+                    if model == "Place":
+                        all_ids.append(ids)
+
+                if instance_id not in all_ids:
+                    print("** no instance found **")
+                else:
+                    key_id = "Place.{}".format(instance_id)
+                    model = all_objs[key_id]
+                    print(model)
+            elif args[0] == "Review":
+                class_name = args[0]
+                instance_id = args[1]
+
+                all_objs = storage.all()
+
+                all_ids = []
+                base_ids = [key for key in all_objs.keys()]
+                for value in base_ids:
+                    model, ids = value.split(".")
+                    if model == "Review":
+                        all_ids.append(ids)
+
+                if instance_id not in all_ids:
+                    print("** no instance found **")
+                else:
+                    key_id = "Review.{}".format(instance_id)
+                    model = all_objs[key_id]
+                    print(model)
 
     def do_destroy(self, arg=""):
         """Deletes an instance based on the class name and
@@ -96,7 +218,8 @@ class HBNBCommand(cmd.Cmd):
 
         args = arg.split(" ")
         if len(args) == 1:
-            if args[0] not in ["BaseModel", "User"]:
+            if args[0] not in ["BaseModel", "User",
+                               "State", "City", "Amenity", "Place", "Review"]:
                 print("** class doesn't exist **")
                 return
             print("** instance id missing **")
@@ -137,6 +260,96 @@ class HBNBCommand(cmd.Cmd):
                     print("** no instance found **")
                 else:
                     key_id = "User.{}".format(instance_id)
+                    all_objs.pop(key_id)
+                    storage.save()
+            elif args[0] == "State":
+                class_name = args[0]
+                instance_id = args[1]
+
+                all_objs = storage.all()
+                all_ids = []
+                base_ids = [key for key in all_objs.keys()]
+                for value in base_ids:
+                    model, ids = value.split(".")
+                    if model == "State":
+                        all_ids.append(ids)
+
+                if instance_id not in all_ids:
+                    print("** no instance found **")
+                else:
+                    key_id = "State.{}".format(instance_id)
+                    all_objs.pop(key_id)
+                    storage.save()
+            elif args[0] == "City":
+                class_name = args[0]
+                instance_id = args[1]
+
+                all_objs = storage.all()
+                all_ids = []
+                base_ids = [key for key in all_objs.keys()]
+                for value in base_ids:
+                    model, ids = value.split(".")
+                    if model == "City":
+                        all_ids.append(ids)
+
+                if instance_id not in all_ids:
+                    print("** no instance found **")
+                else:
+                    key_id = "City.{}".format(instance_id)
+                    all_objs.pop(key_id)
+                    storage.save()
+            elif args[0] == "Amenity":
+                class_name = args[0]
+                instance_id = args[1]
+
+                all_objs = storage.all()
+                all_ids = []
+                base_ids = [key for key in all_objs.keys()]
+                for value in base_ids:
+                    model, ids = value.split(".")
+                    if model == "Amenity":
+                        all_ids.append(ids)
+
+                if instance_id not in all_ids:
+                    print("** no instance found **")
+                else:
+                    key_id = "Amenity.{}".format(instance_id)
+                    all_objs.pop(key_id)
+                    storage.save()
+            elif args[0] == "Place":
+                class_name = args[0]
+                instance_id = args[1]
+
+                all_objs = storage.all()
+                all_ids = []
+                base_ids = [key for key in all_objs.keys()]
+                for value in base_ids:
+                    model, ids = value.split(".")
+                    if model == "Place":
+                        all_ids.append(ids)
+
+                if instance_id not in all_ids:
+                    print("** no instance found **")
+                else:
+                    key_id = "Place.{}".format(instance_id)
+                    all_objs.pop(key_id)
+                    storage.save()
+            elif args[0] == "Review":
+                class_name = args[0]
+                instance_id = args[1]
+
+                all_objs = storage.all()
+                all_ids = []
+                base_ids = [key for key in all_objs.keys()]
+                for value in base_ids:
+                    model, ids = value.split(".")
+                    if model == "Review":
+                        all_ids.append(ids)
+
+                if instance_id not in all_ids:
+                    print("** no instance found **")
+                else:
+                    key_id = "Review.{}".format(instance_id)
                     all_objs.pop(key_id)
                     storage.save()
 
@@ -153,7 +366,8 @@ class HBNBCommand(cmd.Cmd):
             print(instances_strings)
             return
 
-        if arg not in ["BaseModel", "User"]:
+        if arg not in ["BaseModel", "User",
+                       "State", "City", "Amenity", "Place", "Review"]:
             print("** class doesn't exist **")
             return
 
@@ -177,6 +391,56 @@ class HBNBCommand(cmd.Cmd):
                     instance_to_str = str(instance)
                     instances_strings.append(instance_to_str)
             print(instances_strings)
+        elif arg == "State":
+            instances_strings = []
+            all_objs = storage.all()
+            for key in all_objs.keys():
+                model, ids = key.split(".")
+                if model == "State":
+                    instance = all_objs[key]
+                    instance_to_str = str(instance)
+                    instances_strings.append(instance_to_str)
+            print(instances_strings)
+        elif arg == "City":
+            instances_strings = []
+            all_objs = storage.all()
+            for key in all_objs.keys():
+                model, ids = key.split(".")
+                if model == "City":
+                    instance = all_objs[key]
+                    instance_to_str = str(instance)
+                    instances_strings.append(instance_to_str)
+            print(instances_strings)
+        elif arg == "Amenity":
+            instances_strings = []
+            all_objs = storage.all()
+            for key in all_objs.keys():
+                model, ids = key.split(".")
+                if model == "Amenity":
+                    instance = all_objs[key]
+                    instance_to_str = str(instance)
+                    instances_strings.append(instance_to_str)
+            print(instances_strings)
+        elif arg == "Place":
+            instances_strings = []
+            all_objs = storage.all()
+            for key in all_objs.keys():
+                model, ids = key.split(".")
+                if model == "Place":
+                    instance = all_objs[key]
+                    instance_to_str = str(instance)
+                    instances_strings.append(instance_to_str)
+            print(instances_strings)
+        elif arg == "Review":
+            instances_strings = []
+            all_objs = storage.all()
+            for key in all_objs.keys():
+                model, ids = key.split(".")
+                if model == "Review":
+                    instance = all_objs[key]
+                    instance_to_str = str(instance)
+                    instances_strings.append(instance_to_str)
+            print(instances_strings)
 
     def do_update(self, arg=""):
         """Updates an instance based on the class name
@@ -187,7 +451,8 @@ class HBNBCommand(cmd.Cmd):
 
         args = arg.split(" ")
         if len(args) == 1:
-            if args[0] not in ["BaseModel", "User"]:
+            if args[0] not in ["BaseModel", "User",
+                               "State", "City", "Amenity", "Place", "Review"]:
                 print("** class doesn't exist **")
                 return
             print("** instance id missing **")
@@ -261,6 +526,206 @@ class HBNBCommand(cmd.Cmd):
                 for value in base_ids:
                     model, ids = value.split(".")
                     if model == "User":
+                        all_ids.append(ids)
+
+                if args[1] not in all_ids:
+                    print("** no instance found **")
+                    return
+                else:
+                    class_name = args[0]
+                    instance_id = args[1]
+                    attribute = args[2]
+                    attr_value = args[3]
+
+                    # Strip surrounding quotes on attribute if any
+                    if attribute.startswith('"') and attribute.endswith('"'):
+                        attribute = attribute[1:-1]
+                    elif attribute.startswith("'") and attribute.endswith("'"):
+                        attribute = attribute[1:-1]
+
+                    # Strip surrounding quotes on attribute_value if any
+                    if attr_value.startswith('"') and attr_value.endswith('"'):
+                        attr_value = attr_value[1:-1]
+                    elif attr_value.startswith("'") and \
+                            attr_value.endswith("'"):
+                        attr_value = attr_value[1:-1]
+
+                    key_id = "{}.{}".format(class_name, instance_id)
+                    value = all_objs.get(key_id)
+                    value_dict = value.to_dict()
+                    value_dict[attribute] = attr_value
+                    value_object = models.base_model.BaseModel(**value_dict)
+                    value = value_object
+                    for keys in all_objs.keys():
+                        if keys == key_id:
+                            all_objs[keys] = value
+                    storage.save()
+            if args[0] == "State":
+                all_ids = []
+                base_ids = [key for key in all_objs.keys()]
+                for value in base_ids:
+                    model, ids = value.split(".")
+                    if model == "State":
+                        all_ids.append(ids)
+
+                if args[1] not in all_ids:
+                    print("** no instance found **")
+                    return
+                else:
+                    class_name = args[0]
+                    instance_id = args[1]
+                    attribute = args[2]
+                    attr_value = args[3]
+
+                    # Strip surrounding quotes on attribute if any
+                    if attribute.startswith('"') and attribute.endswith('"'):
+                        attribute = attribute[1:-1]
+                    elif attribute.startswith("'") and attribute.endswith("'"):
+                        attribute = attribute[1:-1]
+
+                    # Strip surrounding quotes on attribute_value if any
+                    if attr_value.startswith('"') and attr_value.endswith('"'):
+                        attr_value = attr_value[1:-1]
+                    elif attr_value.startswith("'") and \
+                            attr_value.endswith("'"):
+                        attr_value = attr_value[1:-1]
+
+                    key_id = "{}.{}".format(class_name, instance_id)
+                    value = all_objs.get(key_id)
+                    value_dict = value.to_dict()
+                    value_dict[attribute] = attr_value
+                    value_object = models.base_model.BaseModel(**value_dict)
+                    value = value_object
+                    for keys in all_objs.keys():
+                        if keys == key_id:
+                            all_objs[keys] = value
+                    storage.save()
+            if args[0] == "City":
+                all_ids = []
+                base_ids = [key for key in all_objs.keys()]
+                for value in base_ids:
+                    model, ids = value.split(".")
+                    if model == "City":
+                        all_ids.append(ids)
+
+                if args[1] not in all_ids:
+                    print("** no instance found **")
+                    return
+                else:
+                    class_name = args[0]
+                    instance_id = args[1]
+                    attribute = args[2]
+                    attr_value = args[3]
+
+                    # Strip surrounding quotes on attribute if any
+                    if attribute.startswith('"') and attribute.endswith('"'):
+                        attribute = attribute[1:-1]
+                    elif attribute.startswith("'") and attribute.endswith("'"):
+                        attribute = attribute[1:-1]
+
+                    # Strip surrounding quotes on attribute_value if any
+                    if attr_value.startswith('"') and attr_value.endswith('"'):
+                        attr_value = attr_value[1:-1]
+                    elif attr_value.startswith("'") and \
+                            attr_value.endswith("'"):
+                        attr_value = attr_value[1:-1]
+
+                    key_id = "{}.{}".format(class_name, instance_id)
+                    value = all_objs.get(key_id)
+                    value_dict = value.to_dict()
+                    value_dict[attribute] = attr_value
+                    value_object = models.base_model.BaseModel(**value_dict)
+                    value = value_object
+                    for keys in all_objs.keys():
+                        if keys == key_id:
+                            all_objs[keys] = value
+                    storage.save()
+            if args[0] == "Amenity":
+                all_ids = []
+                base_ids = [key for key in all_objs.keys()]
+                for value in base_ids:
+                    model, ids = value.split(".")
+                    if model == "Amenity":
+                        all_ids.append(ids)
+
+                if args[1] not in all_ids:
+                    print("** no instance found **")
+                    return
+                else:
+                    class_name = args[0]
+                    instance_id = args[1]
+                    attribute = args[2]
+                    attr_value = args[3]
+
+                    # Strip surrounding quotes on attribute if any
+                    if attribute.startswith('"') and attribute.endswith('"'):
+                        attribute = attribute[1:-1]
+                    elif attribute.startswith("'") and attribute.endswith("'"):
+                        attribute = attribute[1:-1]
+
+                    # Strip surrounding quotes on attribute_value if any
+                    if attr_value.startswith('"') and attr_value.endswith('"'):
+                        attr_value = attr_value[1:-1]
+                    elif attr_value.startswith("'") and \
+                            attr_value.endswith("'"):
+                        attr_value = attr_value[1:-1]
+
+                    key_id = "{}.{}".format(class_name, instance_id)
+                    value = all_objs.get(key_id)
+                    value_dict = value.to_dict()
+                    value_dict[attribute] = attr_value
+                    value_object = models.base_model.BaseModel(**value_dict)
+                    value = value_object
+                    for keys in all_objs.keys():
+                        if keys == key_id:
+                            all_objs[keys] = value
+                    storage.save()
+            if args[0] == "Place":
+                all_ids = []
+                base_ids = [key for key in all_objs.keys()]
+                for value in base_ids:
+                    model, ids = value.split(".")
+                    if model == "Place":
+                        all_ids.append(ids)
+
+                if args[1] not in all_ids:
+                    print("** no instance found **")
+                    return
+                else:
+                    class_name = args[0]
+                    instance_id = args[1]
+                    attribute = args[2]
+                    attr_value = args[3]
+
+                    # Strip surrounding quotes on attribute if any
+                    if attribute.startswith('"') and attribute.endswith('"'):
+                        attribute = attribute[1:-1]
+                    elif attribute.startswith("'") and attribute.endswith("'"):
+                        attribute = attribute[1:-1]
+
+                    # Strip surrounding quotes on attribute_value if any
+                    if attr_value.startswith('"') and attr_value.endswith('"'):
+                        attr_value = attr_value[1:-1]
+                    elif attr_value.startswith("'") and \
+                            attr_value.endswith("'"):
+                        attr_value = attr_value[1:-1]
+
+                    key_id = "{}.{}".format(class_name, instance_id)
+                    value = all_objs.get(key_id)
+                    value_dict = value.to_dict()
+                    value_dict[attribute] = attr_value
+                    value_object = models.base_model.BaseModel(**value_dict)
+                    value = value_object
+                    for keys in all_objs.keys():
+                        if keys == key_id:
+                            all_objs[keys] = value
+                    storage.save()
+            if args[0] == "Review":
+                all_ids = []
+                base_ids = [key for key in all_objs.keys()]
+                for value in base_ids:
+                    model, ids = value.split(".")
+                    if model == "Review":
                         all_ids.append(ids)
 
                 if args[1] not in all_ids:
