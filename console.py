@@ -316,10 +316,4 @@ class HBNBCommand(cmd.Cmd):
 
 
 if __name__ == '__main__':
-    import sys
-    cmd = HBNBCommand()
-    if sys.stdin.isatty():
-        cmd.cmdloop()
-    else:
-        cmd.cmdloop()
-        print()
+    HBNBCommand().cmdloop()
