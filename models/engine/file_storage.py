@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """This module serializes instances to a JSON file
-and deserializes JSON file to instances"""
+and deserializes JSON file to instances
+"""
 
 
 import json
@@ -30,12 +31,18 @@ class FileStorage:
     def reload(self):
         """Deserializes the JSON file to __objects"""
         from models.base_model import BaseModel
+        from models.user import User
         if self.__class__.__file_path:
             try:
                 with open(self.__class__.__file_path,
                           "r", encoding="utf-8") as f:
                     obj_dict = json.load(f)
-                    obj_dict = {k: BaseModel(**v) for k, v in obj_dict.items()}
+                    for k, v in obj_dict.items():
+                        class_name, id_ = k.split('.')
+                        if class_name == 'BaseModel':
+                            obj_dict[k] = BaseModel(**v)
+                        elif class_name == 'User':
+                            obj_dict[k] = User(**v)
                     self.__class__.__objects = obj_dict
             except FileNotFoundError:
                 pass

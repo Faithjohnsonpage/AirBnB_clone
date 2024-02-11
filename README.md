@@ -1,4 +1,4 @@
-# AirBnB Clone Console
+# AirBnB Clone - The Console
 
 The AirBnB Clone Console is a command-line interface(CLI) tool built as part
 of a project to create a simplified version of the AirBnB website. This
