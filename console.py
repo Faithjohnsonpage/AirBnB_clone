@@ -20,32 +20,6 @@ class HBNBCommand(cmd.Cmd):
 
     def precmd(self, arg):
         if arg:
-            # Handling string argument with a space between double quote
-            flag = 0
-            arg_shlex = shlex.split(arg)
-            for each_shlex in arg_shlex:
-                if " " in each_shlex:
-                    flag += 1
-            if flag == 0:
-                return arg
-            else:
-                if len(arg_shlex) == 5:
-                    b1, b2, b3, b4, b5 = arg_shlex
-                    arg = f"{b1} {b2} {b3} {b4} {b5}"
-                elif len(arg_shlex) == 4:
-                    b1, b2, b3, b4 = arg_shlex
-                    arg = f"{b1} {b2} {b3} {b4}"
-                elif len(arg_shlex) == 3:
-                    b1, b2, b3 = arg_shlex
-                    arg = f"{b1} {b2} {b3}"
-                elif len(arg_shlex) == 2:
-                    b1, b2 = arg_shlex
-                    arg = f"{b1} {b2}"
-                elif len(arg_shlex) == 1:
-                    b1 = arg_shlex
-                    arg = f"{b1}"
-            print("modified arg is: ", arg)
-
             # Handling when there is a dot method in command execution
             if "." in arg:
                 # Splitting into arg_1 and command_plus
