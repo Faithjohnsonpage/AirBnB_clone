@@ -3,6 +3,7 @@
 
 
 import cmd
+import shlex
 import models.base_model
 from models import storage
 from models.user import User
@@ -16,6 +17,75 @@ from models.review import Review
 class HBNBCommand(cmd.Cmd):
     """A HBNBCommand Class"""
     prompt = '(hbnb) '
+
+    def precmd(self, arg):
+        if arg:
+            # Handling string argument with a space between double quote
+            flag = 0
+            arg_shlex = shlex.split(arg)
+            for each_shlex in arg_shlex:
+                if " " in each_shlex:
+                    flag += 1
+            if flag == 0:
+                return arg
+            else:
+                if len(arg_shlex) == 5:
+                    b1, b2, b3, b4, b5 = arg_shlex
+                    arg = f"{b1} {b2} {b3} {b4} {b5}"
+                elif len(arg_shlex) == 4:
+                    b1, b2, b3, b4 = arg_shlex
+                    arg = f"{b1} {b2} {b3} {b4}"
+                elif len(arg_shlex) == 3:
+                    b1, b2, b3 = arg_shlex
+                    arg = f"{b1} {b2} {b3}"
+                elif len(arg_shlex) == 2:
+                    b1, b2 = arg_shlex
+                    arg = f"{b1} {b2}"
+                elif len(arg_shlex) == 1:
+                    b1 = arg_shlex
+                    arg = f"{b1}"
+            print("modified arg is: ", arg)
+
+            # Handling when there is a dot method in command execution
+            if "." in arg:
+                # Splitting into arg_1 and command_plus
+                arg_1, command_plus = arg.split('.', 1)
+
+                if command_plus.startswith('update'):
+                    # Slicing command_plus to extract command and arg_2
+                    command, arg_2 = command_plus.split('("', 1)
+                    arg_split = arg_2.split(',')
+                    if len(arg_split) == 3:
+                        a3, a4, a5 = arg_split
+                        a3 = a3.strip('"')
+                        a4 = a4[1:].strip('"')
+                        a5 = a5[1:].strip('")')
+                        arg = f"{command} {arg_1} {a3} {a4} {a5}"
+                    elif len(arg_split) == 2:
+                        a3, a4 = arg_split
+                        a3 = a3.strip('"')
+                        arg = f"{command} {arg_1} {a3} {a4}"
+                    elif len(arg_split) == 1:
+                        a3 = arg_2.strip('")')
+                        arg = f"{command} {arg_1} {a3}"
+                else:
+                    # Slicing command_plus to extract command and arg_2
+                    if '("' in command_plus:
+                        command, arg_2 = command_plus.split('("', 1)
+                        arg_2 = arg_2[:-2]
+                    elif '(' in command_plus:
+                        command, arg_2 = command_plus.split('(', 1)
+                        arg_2 = arg_2[:-1]
+                    elif "('" in command_plus:
+                        command, arg_2 = command_plus.split("('", 1)
+                        arg_2 = arg_2[:-2]
+                    else:
+                        return arg
+
+                    # Reorder and format the components
+                    arg = "{} {} {}".format(command, arg_1, arg_2)
+
+        return arg
 
     def do_create(self, arg=""):
         """Creates a new instance of BaseModel,
@@ -57,6 +127,15 @@ class HBNBCommand(cmd.Cmd):
             new_instance = Review()
             new_instance.save()
             print(new_instance.id)
+
+    def do_count(self, arg):
+        """Retrieves the number of instances of a class"""
+        count = 0
+        all_objs = storage.all()
+        for key in all_objs.keys():
+            if key.startswith(arg):
+                count += 1
+        print(count)
 
     def do_show(self, arg=""):
         """Prints the string representation of an instance
