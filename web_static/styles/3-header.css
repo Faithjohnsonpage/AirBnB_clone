@@ -1,0 +1,14 @@
+header {
+  background-color: white;
+  color: black;
+  height: 70px;
+  width: 100%;
+  border-bottom: 1px solid #CCCCCC;
+  background-image: url("../images/icon.png");
+  background-repeat: no-repeat;
+  background-position: 20px 50%;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 70px;
+  text-indent: 55px;
+}
