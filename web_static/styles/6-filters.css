@@ -1,0 +1,85 @@
+.container .filters {
+  background-color: white;
+  height: 70px;
+  width: 100%;
+  border: 1px solid #DDDDDD;
+  border-radius: 4px;
+  position: relative;
+}
+
+button {
+  font-size: 18px;
+  background-color: #FF5A5F;
+  color: #FFFFFF;
+  height: 48px;
+  width: 20%;
+  border: 0;
+  border-radius: 4px;
+  line-height: 48px;
+  position: absolute;
+  right: 0;
+  margin-right: 30px;
+  margin-top: 11px;
+}
+
+button:hover {
+  background-color: rgba(255, 90, 95, 0.9);
+}
+
+.locations {
+  width: 25%;
+  height: 100%;
+  border-right: 1px solid #DDDDDD;
+  display: inline-block;
+  position: relative;
+}
+
+.amenities {
+  width: 25%;
+  height: 100%;
+  display: inline-block;
+  position: relative;
+}
+
+h3 {
+  font-weight: 600;
+  padding-left: 20%;
+  margin: 0;
+  padding-top: 20px;
+}
+
+h4 {
+  font-weight: 400;
+  padding-left: 20%;
+  margin: 0;
+}
+
+.popover {
+  display: none;
+  position: absolute;
+  background-color: #FAFAFA;
+  width: 100%;
+  padding: 0;
+  border: 1px solid #DDDDDD;
+  border-radius: 4px;
+  list-style-type: none;
+  
+}
+
+.locations:hover .popover {
+  display: block;
+  text-indent: 10px;
+}
+
+.amenities:hover .popover {
+  display: block;
+  text-indent: 20%;
+}
+
+h2 {
+  font-size: 16px;
+}
+
+li {
+  list-style-type: none;
+}
