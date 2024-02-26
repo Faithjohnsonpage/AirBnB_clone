@@ -9,3 +9,7 @@ footer {
   line-height: 60px;
   bottom: 0;
 }
+
+.foot {
+  position: fixed;
+}
